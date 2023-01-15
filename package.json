@@ -1,0 +1,22 @@
+{
+  "name": "09-professional-readme-generator",
+  "version": "1.0.0",
+  "description": "README Generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/decourtney/09-professional-readme-generator.git"
+  },
+  "author": "Donovan Courtney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/decourtney/09-professional-readme-generator/issues"
+  },
+  "homepage": "https://github.com/decourtney/09-professional-readme-generator#readme",
+  "dependencies": {
+    "inquirer": "^9.1.4"
+  }
+}
