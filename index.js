@@ -8,12 +8,12 @@ inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer));
 inquirer.registerPrompt('file-tree-selection', inquirerFileTreeSelection);
 
 
-// TODO: Create an array of questions for user input
+// Array of questions
 const questions = [
     {
         type: 'input',
         name: 'name',
-        message: 'Enter Your Name:',
+        message: 'Enter your name:',
         validate: validateIsValue,
     },
     {
@@ -44,13 +44,7 @@ const questions = [
     {
         type: 'confirm',
         name: 'isImages',
-        message: 'Insert an Image?',
-        default: false
-    },
-    {
-        type: 'confirm',
-        name: 'isImages',
-        message: 'Insert an Image?',
+        message: 'Insert an image?',
         default: false
     },
     {
@@ -74,14 +68,44 @@ const questions = [
         default: 'N/A'
     },
     {
+        type: 'confirm',
+        name: 'isMedia',
+        message: 'Would you like to attach any media files to the Usage section?',
+        default: false
+    },
+    {
+        root: './',
+        type: 'file-tree-selection',
+        name: 'media',
+        message: 'Select file(s) (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)',
+        multiple: true,
+        when: (answers) => answers.isMedia
+    },
+    {
         type: 'list',
         name: 'license',
         message: 'Select a License',
-        choices: ['Creative Commons License', 'GNU GPL v3', 'Hippocratic License 3.0', 'ICS License', 'Unlicense', 'MIT'],
+        choices: ['Creative Commons License', 'GNU GPL v3 License', 'Hippocratic License 3.0', 'ICS License', 'Unlicense', 'MIT License'],
         default: 'MIT'
-    }
-
-
+    },
+    {
+        type: 'loop',
+        name: 'additionalSections',
+        message: 'Would you like to add more Sections to the README?',
+        questions: [
+            {
+                type: 'input',
+                name: 'sectionTitle',
+                message: 'Enter the Section Title',
+            },
+            {
+                type: 'editor',
+                name: 'sectionInfo',
+                message: 'Enter the Section Information and Save Before Closing the Text Editor (CTRL/CMD S):',
+                default: 'N/A',
+            },
+        ],
+    },
 ]
 
 // Force the user to submit a value
@@ -94,7 +118,7 @@ function validateIsValue(value)
     return true;
 }
 
-// TODO: Create a function to write README file
+// Write README to file
 function writeToFile(fileName, data)
 {
     fs.writeFile(fileName, data, (err) =>
@@ -102,14 +126,15 @@ function writeToFile(fileName, data)
     );
 }
 
-// TODO: Create a function to initialize app 
+// Start the app
 function init()
 {
     inquirer.prompt(questions).then((answers) =>
     {
+        console.log(answers);
         const readmeContent = generateMarkdown(answers);
-
-        writeToFile('./READMEtoo.md', readmeContent);
+  
+        writeToFile('./generatedREADME.md', readmeContent);
     });
 }
 

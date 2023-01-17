@@ -18,6 +18,7 @@
   "homepage": "https://github.com/decourtney/09-professional-readme-generator#readme",
   "dependencies": {
     "chalk": "^4.1.2",
+    "dedent-js": "^1.0.1",
     "inquirer": "^8.2.5",
     "inquirer-file-tree-selection-prompt": "^1.0.19",
     "inquirer-loop": "^0.3.0"

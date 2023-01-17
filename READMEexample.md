@@ -1,5 +1,8 @@
 # Weather Ornought
 
+* [Installation](#installation)
+* [Usage](#usage)
+
 ## Description
 Weather Ornought is a simple weather app that provides current weather data and a 5 day forecast for a searched location. The app also saves up to 5 recent searches for easy weather retreival. Currently, the site will only search for U.S. cities and states.
 
