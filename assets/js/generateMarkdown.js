@@ -7,6 +7,7 @@ function getLicenseBadge(license)
 
   switch (license.split(' ')[0])
   {
+    // Change available licences to the list here https://choosealicense.com/licenses/
     case 'Creative':
       requestedLicenseBadge = '[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)';
       break;
@@ -37,9 +38,9 @@ function createTOC(data)
   let tmpTOC = dedent(
     `
     
-    ## Table of Contents
-    
-    `);
+  ## Table of Contents
+  
+  `);
 
   tmpTOC += dedent(
     `
@@ -47,26 +48,33 @@ function createTOC(data)
   * [Description](#description)
   * [Installation](#installation)
   * [Usage](#usage)
+  * [Contribution](#contribution)
+  * [Testing](#testing)
+  * [Questions](#questions)
+  * [Licensing](#licensing)
+
   `);
 
-  // If additional sections created add to ToC
-  if (data.additionalSections.length > 0)
-  {
-    data.additionalSections.forEach(element =>
-    {
-      tmpTOC += dedent(
-        `
-        * [${element.sectionTitle}](#${element.sectionTitle.toLowerCase()})
-        `)
-    });
-  }
+  // // If additional sections created add to ToC
+  // if (data.additionalSections.length > 0)
+  // {
+  //   data.additionalSections.forEach(element =>
+  //   {
+  //     tmpTOC += dedent(
+  //       `
 
-  tmpTOC += dedent(
-    `
-    * [License](#license)
+  //       * [${element.sectionTitle}](#${element.sectionTitle.toLowerCase()})
+  //       `)
+  //   });
+  // }
+
+  // tmpTOC += dedent(
+  //   `
+
+  //   * [Licensing](#licensing)
     
-    `
-  )
+  //   `
+  // )
 
   return tmpTOC;
 }
@@ -106,9 +114,9 @@ function generateMarkdown(data)
   }
 
   // If a pic was provided then add to the Description
-  if (data.isImages)
+  if (data.isDescriptionMedia)
   {
-    data.images.forEach(element =>
+    data.descriptionMedia.forEach(element =>
     {
       tmpMD += dedent(
         `
@@ -144,12 +152,12 @@ function generateMarkdown(data)
   `);
 
   // If media files where selected for the Usage section
-  if (data.isMedia)
+  if (data.isUsageMedia)
   {
-    data.images.forEach(element =>
+    data.usageMedia.forEach(element =>
     {
       tmpMD += dedent(
-        `
+          `
 
         <br>
           <div>
@@ -161,27 +169,69 @@ function generateMarkdown(data)
     });
   }
 
-  // If additional sections were added insert here
-  if (data.additionalSections.length > 0)
-  {
-    data.additionalSections.forEach(element =>
-    {
-      tmpMD += dedent(
-        `
+  // Add Contribution Section
+  tmpMD += dedent(
+      `
 
-        ## ${element.sectionTitle}
+    ## Contribution
 
-        ${element.sectionInfo}
+    Follow the "fork-and-pull" Git workflow.
 
-        `)
-    });
-  }
+      1. **Fork** the repo on GitHub
+      2. **Clone** the project to your own machine
+      3. **Commit** changes to your own branch
+      4. **Push** your work back up to your fork
+      5. Submit a **Pull request** so that we can review your changes
+    
+    NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+    
+    `);
+
+  // Add Testing Section
+  tmpMD += dedent(
+      `
+    
+    ## Testing
+    
+    `)
+
+  // Add Questions Section
+  tmpMD += dedent(
+      `
+    
+    ## Questions
+    
+    If you have any questions or would like to collaborate contact me via email:
+
+    <${data.email}>
+
+    Please visit some of my other projects:
+
+    <https://github.com/${data.githubUsername}>
+    
+    `)
+
+  // // If additional sections were added insert here
+  // if (data.additionalSections.length > 0)
+  // {
+  //   data.additionalSections.forEach(element =>
+  //   {
+  //     tmpMD += dedent(
+  //       `
+
+  //       ## ${element.sectionTitle}
+
+  //       ${element.sectionInfo}
+
+  //       `)
+  //   });
+  // }
 
   // Add License info
   tmpMD += dedent(
-    `
+      `
 
-    ## License
+    ## Licensing
 
     Code and Docs released under ${data.license}.
     
