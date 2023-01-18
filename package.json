@@ -22,6 +22,7 @@
     "email-validator": "^2.0.4",
     "inquirer": "^8.2.5",
     "inquirer-file-tree-selection-prompt": "^1.0.19",
-    "inquirer-loop": "^0.3.0"
+    "inquirer-loop": "^0.3.0",
+    "validator": "^13.7.0"
   }
 }

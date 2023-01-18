@@ -5,9 +5,8 @@ const fs = require('fs');
 const validator = require('email-validator');
 const generateMarkdown = require('./assets/js/generateMarkdown');
 
-// inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer));
+// inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer)); // Loop caused minor bugs
 inquirer.registerPrompt('file-tree-selection', inquirerFileTreeSelection);
-
 
 // Array of questions
 const questions = [
@@ -38,7 +37,7 @@ const questions = [
     {
         type: 'editor',
         name: 'description',
-        message: 'Enter the Project Description and Save Before Closing the Text Editor (CTRL/CMD S):',
+        message: 'Enter the Project Description and ' + chalk.bgRed('Save Before Closing the Text Editor') + ':',
         default: 'N/A'
     },
     {
@@ -57,62 +56,65 @@ const questions = [
     {
         type: 'confirm',
         name: 'isDescriptionMedia',
-        message: 'Would you like to attach any media files to the Description Section?',
+        message: 'Would you like to append media files to the Description Section?',
         default: false
     },
     {
         root: './',
         type: 'file-tree-selection',
         name: 'descriptionMedia',
-        message: 'Select file(s) (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)',
+        message: 'Select file(s) (Press ' + chalk.blue('<space>') + ' to select, ' + chalk.blue('<a>') + ' to toggle all, ' + chalk.blue('<i>') + ' to invert selection, and ' + chalk.blue('<enter>') + ' to proceed)',
         multiple: true,
-        when: (answers) => answers.isImages
+        when: (answers) => answers.isDescriptionMedia
     },
     {
         type: 'editor',
         name: 'installation',
-        message: 'Enter the Installation Instructions and Save Before Closing the Text Editor (CTRL/CMD S):',
+        message: 'Enter the Installation Instructions and ' + chalk.bgRed('Save Before Closing the Text Editor') + ':',
         default: 'N/A'
     },
     {
         type: 'editor',
         name: 'usage',
-        message: 'Enter the Usage Directions and Save Before Closing the Text Editor (CTRL/CMD S):',
+        message: 'Enter the Usage Directions and ' + chalk.bgRed('Save Before Closing the Text Editor') + ':',
         default: 'N/A'
     },
     {
         type: 'confirm',
         name: 'isUsageMedia',
-        message: 'Would you like to attach any media files to the Usage Section?',
+        message: 'Would you like to append media files to the Usage Section?',
         default: false
     },
     {
         root: './',
         type: 'file-tree-selection',
         name: 'usageMedia',
-        message: 'Select file(s) (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)',
+        message: 'Select file(s) (Press ' + chalk.blue('<space>') + ' to select, ' + chalk.blue('<a>') + ' to toggle all, ' + chalk.blue('<i>') + ' to invert selection, and ' + chalk.blue('<enter>') + ' to proceed)',
         multiple: true,
-        when: (answers) => answers.isMedia
+        when: (answers) => answers.isUsageMedia
     },
     {
         type: 'confirm',
         name: 'isTests',
-        message: 'Do you have instructions for running tests?',
+        message: 'Would you like to include Testing Instructions?',
         default: false
     },
     {
         type: 'editor',
         name: 'tests',
-        message: 'Enter the Usage Directions and Save Before Closing the Text Editor (CTRL/CMD S):',
-        default: 'N/A'
+        message: 'Enter the Testing Instructions and ' + chalk.bgRed('Save Before Closing the Text Editor') + ':',
+        default: 'N/A',
+        when: (answers) => answers.isTests
     },
     {
         type: 'list',
         name: 'license',
         message: 'Select a License:',
-        choices: ['Creative Commons License', 'GNU GPL v3 License', 'Hippocratic License 3.0', 'ICS License', 'Unlicense', 'MIT License'],
+        choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense'],
         default: 'MIT'
     },
+    // The loop is neat however it doesn't play well with type: editor
+    // The loop
     // {
     //     type: 'loop',
     //     name: 'additionalSections',
@@ -168,7 +170,7 @@ function init()
 {
     inquirer.prompt(questions).then((answers) =>
     {
-        console.log(answers);
+        // console.log(answers);
         const readmeContent = generateMarkdown(answers);
 
         writeToFile('./generatedREADME.md', readmeContent);
