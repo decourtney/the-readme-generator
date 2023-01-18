@@ -8,29 +8,29 @@ function getLicense(license)
   switch (license)
   {
     case 'GNU AGPLv3':
-      requestedLicenseBadge = ['[![License: GNU AGPLv3](https://img.shields.io/badge/License-AGPLv3-blue.svg)]','(https://choosealicense.com/licenses/agpl-3.0/)']
+      requestedLicenseBadge = ['[![License: GNU AGPLv3](https://img.shields.io/badge/License-AGPLv3-blue.svg)]', '(https://choosealicense.com/licenses/agpl-3.0/)']
       break;
     case 'GNU GPLv3':
-      requestedLicenseBadge = ['[![License: GNU GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)]','(https://choosealicense.com/licenses/gpl-3.0/)'];
+      requestedLicenseBadge = ['[![License: GNU GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)]', '(https://choosealicense.com/licenses/gpl-3.0/)'];
       break;
     case 'GNU LGPLv3':
-      requestedLicenseBadge = ['[![License: GNU LGPLv3](https://img.shields.io/badge/License-LGPLv3-blue.svg)]','(https://choosealicense.com/licenses/lgpl-3.0/)'];
+      requestedLicenseBadge = ['[![License: GNU LGPLv3](https://img.shields.io/badge/License-LGPLv3-blue.svg)]', '(https://choosealicense.com/licenses/lgpl-3.0/)'];
       break;
     case 'Mozilla Public License 2.0':
-      requestedLicenseBadge = ['[![License: Mozilla Public License 2.0](https://img.shields.io/badge/License-Mozilla_Public-blue.svg)]','(https://choosealicense.com/licenses/mpl-2.0/)'];
+      requestedLicenseBadge = ['[![License: Mozilla Public License 2.0](https://img.shields.io/badge/License-Mozilla_Public-blue.svg)]', '(https://choosealicense.com/licenses/mpl-2.0/)'];
       break;
     case 'Apache License 2.0':
-      requestedLicenseBadge = ['[![License: Apache License 2.0](https://img.shields.io/badge/License-Apache-blue.svg)]','(https://choosealicense.com/licenses/apache-2.0/)'];
+      requestedLicenseBadge = ['[![License: Apache License 2.0](https://img.shields.io/badge/License-Apache-blue.svg)]', '(https://choosealicense.com/licenses/apache-2.0/)'];
       break;
     case 'Boost Software License 1.0':
-      requestedLicenseBadge = ['[![License: Boost Software License 1.0](https://img.shields.io/badge/License-Boost_Software-blue.svg)]','(https://choosealicense.com/licenses/bsl-1.0/)'];
+      requestedLicenseBadge = ['[![License: Boost Software License 1.0](https://img.shields.io/badge/License-Boost_Software-blue.svg)]', '(https://choosealicense.com/licenses/bsl-1.0/)'];
       break;
     case 'The Unlicense':
-      requestedLicenseBadge = ['[![License: The Unlicense](https://img.shields.io/badge/License-Unlicense-blue.svg)]','(https://choosealicense.com/licenses/unlicense/)'];
+      requestedLicenseBadge = ['[![License: The Unlicense](https://img.shields.io/badge/License-Unlicense-blue.svg)]', '(https://choosealicense.com/licenses/unlicense/)'];
       break;
     default:
       // We've been using MIT as the default license throughout the course
-      requestedLicenseBadge = ['[![License: MIT License](https://img.shields.io/badge/License-MIT-blue.svg)]','(https://choosealicense.com/licenses/mit/)'];
+      requestedLicenseBadge = ['[![License: MIT License](https://img.shields.io/badge/License-MIT-blue.svg)]', '(https://choosealicense.com/licenses/mit/)'];
       break;
   }
 
@@ -201,9 +201,25 @@ function generateMarkdown(data)
     
     ## Testing
     
-    ${data.tests}
 
     `)
+  if (!data.tests)
+  {
+    tmpMD += dedent(
+      `
+        
+      N/A
+
+      `);
+  } else
+  {
+    tmpMD += dedent(
+      `
+    
+      ${data.tests}
+
+    `);
+  }
 
   // Add Questions Section
   tmpMD += dedent(
