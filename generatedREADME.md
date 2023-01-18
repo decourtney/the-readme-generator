@@ -1,8 +1,9 @@
-# asdf
+# README Generator
 
-[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+[![License: MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
   
 ## Table of Contents
+
 * [Description](#description)
 * [Installation](#installation)
 * [Usage](#usage)
@@ -13,15 +14,37 @@
 
 ## Description
 
-N/A
+Public GitHub projects are how developers showcase their work, collaborate with other developers, and share their knowledge with the world. An essential component of these projects is the README file.
+
+Creating a README file is not a daunting task but writing content and structuring the markdown takes time that could be better spent on projects. This README generator saves you the effort of formatting and structuring the markdown - Simply answer a series of questions and let the generator handle the heavy lifting.
 
 ## Installation
 
-N/A
+Before attempting to run the generator you will have to do a little prep work. To start you will need to install Node.js, initialize, and then install the following modules (npm install 'module'):
+
+- inquirer
+- inquirer-file-tree-selection-prompt
+- chalk
+- email-validator
+- dedent-js
 
 ## Usage
 
-N/A
+To start open your preferred cmd prompt or terminal and navigate to the root directory of the generator.
+
+Enter the command **node index.js** and witness the magic.
+
+You will be prompted with a series of questions and instructions.
+
+For questions requiring longer text input your default text editor will spawn. Make your entry into the text editor, **SAVE**, and then close the window.
+
+Once the generator is done it will build your README file and save it in the project's root directory as ‘generatedREADME.md’.
+
+<br>
+  <div>
+      <img src="./assets/media/README_generator_usage.gif" target="_blank" alt="" style="max-width: 300px; display: block;" />  
+  </div>
+<br>
 
 ## Contribution
 
@@ -37,14 +60,14 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ## Testing
 
+undefined
+
 ## Questions
 
-If you have any questions or would like to collaborate contact me via email:
-<asdfasdf@asdf.com>
-
-Please visit some of my other public projects:
-<https://github.com/asdf>
+Feel free to contact me with any questions or comments:  
+<donovan.courtney@gmail.com>  
+<https://github.com/decourtney>
 
 ## Licensing
 
-Code and Docs released under Creative Commons License.
+Code and Docs released under [MIT License](https://choosealicense.com/licenses/mit/).

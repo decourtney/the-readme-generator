@@ -1,31 +1,36 @@
 const dedent = require('dedent-js');
 
 // Create License Badge
-function getLicenseBadge(license)
+function getLicense(license)
 {
   let requestedLicenseBadge = '';
 
-  switch (license.split(' ')[0])
+  switch (license)
   {
-    // Change available licences to the list here https://choosealicense.com/licenses/
-    case 'Creative':
-      requestedLicenseBadge = '[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)';
+    case 'GNU AGPLv3':
+      requestedLicenseBadge = ['[![License: GNU AGPLv3](https://img.shields.io/badge/License-AGPLv3-blue.svg)]','(https://choosealicense.com/licenses/agpl-3.0/)']
       break;
-    case 'GNU':
-      requestedLicenseBadge = '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)';
+    case 'GNU GPLv3':
+      requestedLicenseBadge = ['[![License: GNU GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)]','(https://choosealicense.com/licenses/gpl-3.0/)'];
       break;
-    case 'Hippocratic':
-      requestedLicenseBadge = '[![License: Hippocratic 3.0](https://img.shields.io/badge/License-Hippocratic_3.0-lightgrey.svg)](https://firstdonoharm.dev)';
+    case 'GNU LGPLv3':
+      requestedLicenseBadge = ['[![License: GNU LGPLv3](https://img.shields.io/badge/License-LGPLv3-blue.svg)]','(https://choosealicense.com/licenses/lgpl-3.0/)'];
       break;
-    case 'ICS':
-      requestedLicenseBadge = '[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)';
+    case 'Mozilla Public License 2.0':
+      requestedLicenseBadge = ['[![License: Mozilla Public License 2.0](https://img.shields.io/badge/License-Mozilla_Public-blue.svg)]','(https://choosealicense.com/licenses/mpl-2.0/)'];
       break;
-    case 'Unlicense':
-      requestedLicenseBadge = '[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)';
+    case 'Apache License 2.0':
+      requestedLicenseBadge = ['[![License: Apache License 2.0](https://img.shields.io/badge/License-Apache-blue.svg)]','(https://choosealicense.com/licenses/apache-2.0/)'];
+      break;
+    case 'Boost Software License 1.0':
+      requestedLicenseBadge = ['[![License: Boost Software License 1.0](https://img.shields.io/badge/License-Boost_Software-blue.svg)]','(https://choosealicense.com/licenses/bsl-1.0/)'];
+      break;
+    case 'The Unlicense':
+      requestedLicenseBadge = ['[![License: The Unlicense](https://img.shields.io/badge/License-Unlicense-blue.svg)]','(https://choosealicense.com/licenses/unlicense/)'];
       break;
     default:
       // We've been using MIT as the default license throughout the course
-      requestedLicenseBadge = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
+      requestedLicenseBadge = ['[![License: MIT License](https://img.shields.io/badge/License-MIT-blue.svg)]','(https://choosealicense.com/licenses/mit/)'];
       break;
   }
 
@@ -55,6 +60,7 @@ function createTOC(data)
 
   `);
 
+  // This section handled any additional sections created by the inquirer-loop
   // // If additional sections created add to ToC
   // if (data.additionalSections.length > 0)
   // {
@@ -72,7 +78,7 @@ function createTOC(data)
   //   `
 
   //   * [Licensing](#licensing)
-    
+
   //   `
   // )
 
@@ -82,10 +88,12 @@ function createTOC(data)
 // Piece together the README
 function generateMarkdown(data)
 {
+  let licenseInfo = getLicense(data.license);
+
   let tmpMD = dedent(
     `# ${data.title}
 
-  ${getLicenseBadge(data.license)}
+  ${licenseInfo.join('')}
   
   `);
 
@@ -157,7 +165,7 @@ function generateMarkdown(data)
     data.usageMedia.forEach(element =>
     {
       tmpMD += dedent(
-          `
+        `
 
         <br>
           <div>
@@ -171,7 +179,7 @@ function generateMarkdown(data)
 
   // Add Contribution Section
   tmpMD += dedent(
-      `
+    `
 
     ## Contribution
 
@@ -189,24 +197,22 @@ function generateMarkdown(data)
 
   // Add Testing Section
   tmpMD += dedent(
-      `
+    `
     
     ## Testing
     
+    ${data.tests}
+
     `)
 
   // Add Questions Section
   tmpMD += dedent(
-      `
+    `
     
     ## Questions
     
-    If you have any questions or would like to collaborate contact me via email:
-
-    <${data.email}>
-
-    Please visit some of my other projects:
-
+    Feel free to contact me with any questions or comments:  
+    <${data.email}>  
     <https://github.com/${data.githubUsername}>
     
     `)
@@ -229,11 +235,11 @@ function generateMarkdown(data)
 
   // Add License info
   tmpMD += dedent(
-      `
+    `
 
     ## Licensing
 
-    Code and Docs released under ${data.license}.
+    Code and Docs released under [${data.license}]${licenseInfo[1]}.
     
     `)
 
